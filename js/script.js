@@ -40,6 +40,8 @@ createApp({
           breed_id: randomBreed,
           size: "thumb",
         });
+
+        console.log(toFetch);
       let res = await fetch(toFetch, {
         headers: new Headers({
           'x-api-key': this.key

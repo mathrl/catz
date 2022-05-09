@@ -62,6 +62,10 @@
                 <td>{{cs(catInfo.energy_level)}}</td>
               </tr>
               <tr>
+                <td>Shedding Level:</td>
+                <td>{{cs(catInfo.shedding_level)}}</td>
+              </tr>
+              <tr>
                 <td>Dog Friendly:</td>
                 <td>{{cs(catInfo.dog_friendly)}}</td>
               </tr>
@@ -72,6 +76,10 @@
               <tr v-if="catInfo.vocalisation">
                 <td>Vocalisation:</td>
                 <td>{{cs(catInfo.vocalisation)}}</td>
+              </tr>
+              <tr v-if="catInfo.rare">
+                <td>Experimental:</td>
+                <td>{{yesOrNo(catInfo.rare)}}</td>
               </tr>
               <tr v-if="catInfo.experimental">
                 <td>Experimental:</td>
@@ -98,7 +106,7 @@
         </div>
       </div>
 
-      <p id="about">Made by <a href="https://www.linkedin.com/in/matheus-leite-87843216b/">Matheus Leite</a> with <a href="https://thecatapi.com/">Cat API</a></p>
+      <p id="about">Made by <a href="https://www.linkedin.com/in/matheus-leite-87843216b/">Matheus Leite</a> with <a href="https://thecatapi.com/">The Cat API</a></p>
     </div>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="js/breeds.js"></script>
