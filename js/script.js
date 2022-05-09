@@ -42,7 +42,7 @@ createApp({
         });
       let res = await fetch(toFetch, {
         headers: new Headers({
-          'x-api-key': API_KEY
+          'x-api-key': this.key
         })
       });
 
@@ -61,7 +61,8 @@ createApp({
       endpoint: "https://api.thecatapi.com/v1/images/search?",
       url: "",
       catInfo: {},
-      loading: "Loading cat... 🙀"
+      loading: "Loading cat... 🙀",
+      key: "1f9225bc-14b7-4b63-8f78-b5f53a066ab7"
     };
   },
 }).mount("#app");
