@@ -1,3 +1,3 @@
 # 🐱
 
-##### [https://mathrl.github.io/catz/](https://mathrl.github.io/catz/)
+##### Made with [The Cat API](https://thecatapi.com/)
