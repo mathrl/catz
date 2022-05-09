@@ -5,3 +5,11 @@
 img {
     max-width: 300px;
 }
+
+td {
+    padding: 8px;
+}
+
+tr:nth-child(odd){
+    background-color: rgba(76, 0, 130, 0.5);
+}

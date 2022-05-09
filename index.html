@@ -1,95 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catz 🐱</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="https://unpkg.com/vue@3"></script>
-</head>
-<body>
-    <img src="" alt="">
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    
     <script src="breeds.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <img :src="url" alt="" />
+      <button @click="fetchCat">New Cat</button>
+      <p><b>Name: </b>{{catInfo.name}}</p>
+      <p><b>description: </b>{{catInfo.description}}</p>
+      <p><b>origin: </b>{{catInfo.origin}}</p>
+      <p><b>temperament: </b>{{catInfo.temperament}}</p>
+      <p><b>life_span: </b>{{catInfo.life_span}}y</p>
+      <p><b>alt_names: </b>{{catInfo.alt_names}}</p>
+
+      <table>
+        <tr>
+          <td>affection_level:</td>
+          <td>{{cs(catInfo.affection_level)}}</td>
+        </tr>
+        <tr>
+          <td>intelligence:</td>
+          <td>{{cs(catInfo.intelligence)}}</td>
+        </tr>
+        <tr>
+          <td>social_needs:</td>
+          <td>{{cs(catInfo.social_needs)}}</td>
+        </tr>
+        <tr>
+          <td>health_issues:</td>
+          <td>{{cs(catInfo.health_issues)}}</td>
+        </tr>
+        <tr>
+          <td>child_friendly:</td>
+          <td>{{cs(catInfo.child_friendly)}}</td>
+        </tr>
+        <tr>
+          <td>energy_level:</td>
+          <td>{{cs(catInfo.energy_level)}}</td>
+        </tr>
+        <tr>
+          <td>dog_friendly:</td>
+          <td>{{cs(catInfo.dog_friendly)}}</td>
+        </tr>
+        <tr>
+          <td>adaptability:</td>
+          <td>{{cs(catInfo.adaptability)}}</td>
+        </tr>
+        <tr>
+          <td>experimental:</td>
+          <td>{{cs(catInfo.experimental)}}</td>
+        </tr>
+        <tr>
+          <td>hairless:</td>
+          <td>{{cs(catInfo.hairless)}}</td>
+        </tr>
+        <tr>
+          <td>hypoallergenic:</td>
+          <td>{{cs(catInfo.hypoallergenic)}}</td>
+        </tr>
+        <tr>
+          <td>indoor:</td>
+          <td>{{cs(catInfo.indoor)}}</td>
+        </tr>
+        <tr>
+          <td>stranger_friendly:</td>
+          <td>{{cs(catInfo.stranger_friendly)}}</td>
+        </tr>
+        <tr>
+          <td>suppressed_tail:</td>
+          <td>{{cs(catInfo.suppressed_tail)}}</td>
+        </tr>
+        <tr>
+          <td>vocalisation:</td>
+          <td>{{cs(catInfo.vocalisation)}}</td>
+        </tr>
+      </table>
+    </div>
 
     <script>
+      const { createApp } = Vue;
 
-        const apiKey = "1f9225bc-14b7-4b63-8f78-b5f53a066ab7";
-        const endpoint = "https://api.thecatapi.com/v1/images/search?";
-    
-    
-        function randomIntFromInterval(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min)
-        }
-    
-        let random = randomIntFromInterval(0, breeds.length - 1);
-        let randomBreed = breeds[random];
-    
-        
-        (async () => {
-    
-            let searchRes = await fetch(endpoint + new URLSearchParams({
-                breed_id: randomBreed
-            }));
-            //console.log(searchRes);
-    
-            let catEndpoint = searchRes.url;
-            //console.log(catEndpoint)
-    
-            let catRes = await fetch(catEndpoint);
-            let cat = await catRes.json();
-            //console.log(cat);
-    
-    
-            
-           
-            let pic = cat[0].url;
-            document.querySelector('img').src = pic;
-    
-            let catInfo = cat[0].breeds[0];
-            console.log(cat[0].breeds[0]);
-    
-            let ps = document.querySelectorAll('p.info');
-            ps.forEach((p, index) => {
-                let input = catInfo[index];
-                if(typeof input == 'number'){
-                    let rating = catInfo[index];
-                    input = catStringify(rating);
-                } 
-                p.innerHTML += input;
-            })
-    
-        })();
-    
-        function catStringify(number){
-            let catString = '';
-            while(number > 0){
-                catString += '🐱';
-                number--;
+      createApp({
+        async created() {
+          this.fetchCat();
+        },
+
+        methods: {
+          randomIntFromInterval(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+          },
+
+          // cat stringify
+          // represent a number in car emoji
+          cs(number) {
+            let catString = "";
+            while (number > 0) {
+              catString += "🐱";
+              number--;
             }
             return catString;
-        }
-    
-    
-        
-    
+          },
+
+          async fetchCat() {
+            let random = this.randomIntFromInterval(0, breeds.length - 1);
+            let randomBreed = breeds[random];
+
+            let toFetch =
+              this.endpoint +
+              new URLSearchParams({
+                breed_id: randomBreed,
+                size: 'thumb'
+              });
+            let res = await fetch(toFetch);
+            let cat = await res.json();
+
+            this.url = cat[0].url;
+            this.catInfo = cat[0].breeds[0];
+
+            console.log(cat[0].breeds[0]);
+          },
+        },
+
+        data() {
+          return {
+            apiKey: "1f9225bc-14b7-4b63-8f78-b5f53a066ab7",
+            endpoint: "https://api.thecatapi.com/v1/images/search?",
+            url: "",
+            catInfo: {},
+          };
+        },
+      }).mount("#app");
     </script>
-</body>
+  </body>
 </html>
-
-
