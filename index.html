@@ -1,0 +1,39 @@
+<p></p>
+
+<script src="breeds.js"></script>
+<script>
+
+    const apiKey = "1f9225bc-14b7-4b63-8f78-b5f53a066ab7";
+
+    const endpoint = "https://api.thecatapi.com/v1/images/search?";
+
+    function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    let random = randomIntFromInterval(0, breeds.length - 1);
+    let randomBreed = breeds[random];
+
+    
+    (async () => {
+
+        let searchRes = await fetch(endpoint + new URLSearchParams({
+            breed_id: randomBreed
+        }));
+        console.log(searchRes);
+
+        let catEndpoint = searchRes.url;
+        console.log(catEndpoint)
+
+        let catRes = await fetch(catEndpoint);
+        let cat = await catRes.json();
+        console.log(cat);
+        //console.log(cat[0].url);
+        
+    })();
+    
+
+
+    
+
+</script>
