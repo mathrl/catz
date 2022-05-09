@@ -4,88 +4,107 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catz 🐱</title>
+    <title>🐈 Catz</title>
 
     <link rel="stylesheet" href="style.css" />
-    
+    <link rel="stylesheet" href="mobile.css" />
   </head>
   <body>
-    <div id="app">
-      <img :src="url" alt="" />
-      <button @click="fetchCat">New Cat</button>
-      <p><b>Name: </b>{{catInfo.name}}</p>
-      <p><b>description: </b>{{catInfo.description}}</p>
-      <p><b>origin: </b>{{catInfo.origin}}</p>
-      <p><b>temperament: </b>{{catInfo.temperament}}</p>
-      <p><b>life_span: </b>{{catInfo.life_span}}y</p>
-      <p><b>alt_names: </b>{{catInfo.alt_names}}</p>
+    <div id="container">
+      <div id="app">
+        <!-- img -->
+        <div id="img" :style="{background: `url(${url})`}">,</div>
 
-      <table>
-        <tr>
-          <td>affection_level:</td>
-          <td>{{cs(catInfo.affection_level)}}</td>
-        </tr>
-        <tr>
-          <td>intelligence:</td>
-          <td>{{cs(catInfo.intelligence)}}</td>
-        </tr>
-        <tr>
-          <td>social_needs:</td>
-          <td>{{cs(catInfo.social_needs)}}</td>
-        </tr>
-        <tr>
-          <td>health_issues:</td>
-          <td>{{cs(catInfo.health_issues)}}</td>
-        </tr>
-        <tr>
-          <td>child_friendly:</td>
-          <td>{{cs(catInfo.child_friendly)}}</td>
-        </tr>
-        <tr>
-          <td>energy_level:</td>
-          <td>{{cs(catInfo.energy_level)}}</td>
-        </tr>
-        <tr>
-          <td>dog_friendly:</td>
-          <td>{{cs(catInfo.dog_friendly)}}</td>
-        </tr>
-        <tr>
-          <td>adaptability:</td>
-          <td>{{cs(catInfo.adaptability)}}</td>
-        </tr>
-        <tr>
-          <td>experimental:</td>
-          <td>{{cs(catInfo.experimental)}}</td>
-        </tr>
-        <tr>
-          <td>hairless:</td>
-          <td>{{cs(catInfo.hairless)}}</td>
-        </tr>
-        <tr>
-          <td>hypoallergenic:</td>
-          <td>{{cs(catInfo.hypoallergenic)}}</td>
-        </tr>
-        <tr>
-          <td>indoor:</td>
-          <td>{{cs(catInfo.indoor)}}</td>
-        </tr>
-        <tr>
-          <td>stranger_friendly:</td>
-          <td>{{cs(catInfo.stranger_friendly)}}</td>
-        </tr>
-        <tr>
-          <td>suppressed_tail:</td>
-          <td>{{cs(catInfo.suppressed_tail)}}</td>
-        </tr>
-        <tr>
-          <td>vocalisation:</td>
-          <td>{{cs(catInfo.vocalisation)}}</td>
-        </tr>
-      </table>
+        <!-- colunas -->
+        <div id="info">
+          
+          <div>
+            <div>
+              <p id="loading">{{loading}}</p>
+              <button @click="fetchCat">New Cat</button>
+            </div>
+            <p><b>Name: </b>{{catInfo.name}}</p>
+            <p><b>Description: </b>{{catInfo.description}}</p>
+            <p><b>Origin: </b>{{catInfo.origin}}</p>
+            <p><b>Temperament: </b>{{catInfo.temperament}}</p>
+            <p><b>Life Span: </b>{{catInfo.life_span}}y</p>
+            <p v-if="catInfo.alt_names"><b>Alt Names: </b>{{catInfo.alt_names}}</p>
+          </div>
+
+          <div>
+            <table>
+              <tr>
+                <td>Affection Level:</td>
+                <td>{{cs(catInfo.affection_level)}}</td>
+              </tr>
+              <tr>
+                <td>Intelligence:</td>
+                <td>{{cs(catInfo.intelligence)}}</td>
+              </tr>
+              <tr>
+                <td>Social Needs:</td>
+                <td>{{cs(catInfo.social_needs)}}</td>
+              </tr>
+              <tr>
+                <td>Health Issues:</td>
+                <td>{{cs(catInfo.health_issues)}}</td>
+              </tr>
+              <tr>
+                <td>Stranger Friendly:</td>
+                <td>{{cs(catInfo.stranger_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Child Friendly:</td>
+                <td>{{cs(catInfo.child_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Energy Level:</td>
+                <td>{{cs(catInfo.energy_level)}}</td>
+              </tr>
+              <tr>
+                <td>Dog Friendly:</td>
+                <td>{{cs(catInfo.dog_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Adaptability:</td>
+                <td>{{cs(catInfo.adaptability)}}</td>
+              </tr>
+              <tr v-if="catInfo.vocalisation">
+                <td>Vocalisation:</td>
+                <td>{{cs(catInfo.vocalisation)}}</td>
+              </tr>
+              <tr v-if="catInfo.experimental">
+                <td>Experimental:</td>
+                <td>{{yesOrNo(catInfo.experimental)}}</td>
+              </tr>
+              <tr v-if="catInfo.hairless">
+                <td>Hairless:</td>
+                <td>{{yesOrNo(catInfo.hairless)}}</td>
+              </tr>
+              <tr v-if="catInfo.hypoallergenic">
+                <td>Hypoallergenic:</td>
+                <td>{{yesOrNo(catInfo.hypoallergenic)}}</td>
+              </tr>
+              <tr v-if="catInfo.indoor">
+                <td>Indoor:</td>
+                <td>{{yesOrNo(catInfo.indoor)}}</td>
+              </tr>
+              <tr v-if="catInfo.suppressed_tail">
+                <td>Suppressed Tail:</td>
+                <td>{{yesOrNo(catInfo.suppressed_tail)}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <p id="about">Made by <a href="#">Matheus Leite</a> with <a href="#">Cat API</a></p>
     </div>
-
     <script src="https://unpkg.com/vue@3"></script>
     <script src="breeds.js"></script>
+    <script src="apiKey.js">
+      
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,0 +1,27 @@
+@media screen and(max-width: 766px) {
+    #app {
+        width: 95% !important;
+        flex-direction: column;
+
+        &>div {
+            width: 100% !important;
+        }
+    }
+
+    div#info {
+        width: 100%;
+        &>div {
+            width: 100% !important;
+            padding: 0;
+        }
+    }
+
+    #container {
+        width: auto;
+    height: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+}

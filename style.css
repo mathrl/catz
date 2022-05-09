@@ -1,15 +1,78 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  font-size: 13px;
+}
 
+#container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-/*# sourceMappingURL=style.css.map */
+div#app {
+  width: 80%;
+}
+div#app div#img {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  height: 400px;
+}
 
-img {
-    max-width: 300px;
+div#info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* 1ª coluna */
+}
+div#info > div {
+  padding: 15px;
+}
+div#info > div:nth-child(1) {
+  width: 30%;
+}
+div#info > div:nth-child(1) > div:nth-child(1) {
+  text-align: center;
+  margin-bottom: 15px;
+}
+div#info > div:nth-child(1) p {
+  margin-bottom: 5px;
+}
+
+p#loading {
+  height: 15px;
+  margin-top: 5px;
+}
+
+button {
+  padding: 13px;
+  background-color: rgba(76, 0, 130, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+button:hover {
+  background-color: rgba(76, 0, 130, 0.829);
 }
 
 td {
-    padding: 8px;
+  padding: 8px;
 }
 
-tr:nth-child(odd){
-    background-color: rgba(76, 0, 130, 0.5);
+tr:nth-child(odd) {
+  background-color: rgba(76, 0, 130, 0.5);
 }
+
+p#about {
+  margin: 12px 0;
+}
+
+/*# sourceMappingURL=style.css.map */
