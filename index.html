@@ -1,95 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catz 🐱</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🐈 Catz</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="app">
+        <!-- img -->
+        <div id="img" :style="{background: `url(${url})`}">,</div>
+
+        <!-- colunas -->
+        <div id="info">
+          
+          <div>
+            <div>
+              <p id="loading">{{loading}}</p>
+              <button @click="fetchCat">New Cat</button>
+            </div>
+            <p><b>Name: </b>{{catInfo.name}}</p>
+            <p><b>Description: </b>{{catInfo.description}}</p>
+            <p><b>Origin: </b>{{catInfo.origin}}</p>
+            <p><b>Temperament: </b>{{catInfo.temperament}}</p>
+            <p><b>Life Span: </b>{{catInfo.life_span}}y</p>
+            <p v-if="catInfo.alt_names"><b>Alt Names: </b>{{catInfo.alt_names}}</p>
+          </div>
+
+          <div>
+            <table>
+              <tr>
+                <td>Affection Level:</td>
+                <td>{{cs(catInfo.affection_level)}}</td>
+              </tr>
+              <tr>
+                <td>Intelligence:</td>
+                <td>{{cs(catInfo.intelligence)}}</td>
+              </tr>
+              <tr>
+                <td>Social Needs:</td>
+                <td>{{cs(catInfo.social_needs)}}</td>
+              </tr>
+              <tr>
+                <td>Health Issues:</td>
+                <td>{{cs(catInfo.health_issues)}}</td>
+              </tr>
+              <tr>
+                <td>Stranger Friendly:</td>
+                <td>{{cs(catInfo.stranger_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Child Friendly:</td>
+                <td>{{cs(catInfo.child_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Energy Level:</td>
+                <td>{{cs(catInfo.energy_level)}}</td>
+              </tr>
+              <tr>
+                <td>Dog Friendly:</td>
+                <td>{{cs(catInfo.dog_friendly)}}</td>
+              </tr>
+              <tr>
+                <td>Adaptability:</td>
+                <td>{{cs(catInfo.adaptability)}}</td>
+              </tr>
+              <tr v-if="catInfo.vocalisation">
+                <td>Vocalisation:</td>
+                <td>{{cs(catInfo.vocalisation)}}</td>
+              </tr>
+              <tr v-if="catInfo.experimental">
+                <td>Experimental:</td>
+                <td>{{yesOrNo(catInfo.experimental)}}</td>
+              </tr>
+              <tr v-if="catInfo.hairless">
+                <td>Hairless:</td>
+                <td>{{yesOrNo(catInfo.hairless)}}</td>
+              </tr>
+              <tr v-if="catInfo.hypoallergenic">
+                <td>Hypoallergenic:</td>
+                <td>{{yesOrNo(catInfo.hypoallergenic)}}</td>
+              </tr>
+              <tr v-if="catInfo.indoor">
+                <td>Indoor:</td>
+                <td>{{yesOrNo(catInfo.indoor)}}</td>
+              </tr>
+              <tr v-if="catInfo.suppressed_tail">
+                <td>Suppressed Tail:</td>
+                <td>{{yesOrNo(catInfo.suppressed_tail)}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <p id="about">Made by <a href="#">Matheus Leite</a> with <a href="#">Cat API</a></p>
+    </div>
     <script src="https://unpkg.com/vue@3"></script>
-</head>
-<body>
-    <img src="" alt="">
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    <p class="info"></p>
-    
     <script src="breeds.js"></script>
-
-    <script>
-
-        const apiKey = "1f9225bc-14b7-4b63-8f78-b5f53a066ab7";
-        const endpoint = "https://api.thecatapi.com/v1/images/search?";
-    
-    
-        function randomIntFromInterval(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min)
-        }
-    
-        let random = randomIntFromInterval(0, breeds.length - 1);
-        let randomBreed = breeds[random];
-    
-        
-        (async () => {
-    
-            let searchRes = await fetch(endpoint + new URLSearchParams({
-                breed_id: randomBreed
-            }));
-            //console.log(searchRes);
-    
-            let catEndpoint = searchRes.url;
-            //console.log(catEndpoint)
-    
-            let catRes = await fetch(catEndpoint);
-            let cat = await catRes.json();
-            //console.log(cat);
-    
-    
-            
-           
-            let pic = cat[0].url;
-            document.querySelector('img').src = pic;
-    
-            let catInfo = cat[0].breeds[0];
-            console.log(cat[0].breeds[0]);
-    
-            let ps = document.querySelectorAll('p.info');
-            ps.forEach((p, index) => {
-                let input = catInfo[index];
-                if(typeof input == 'number'){
-                    let rating = catInfo[index];
-                    input = catStringify(rating);
-                } 
-                p.innerHTML += input;
-            })
-    
-        })();
-    
-        function catStringify(number){
-            let catString = '';
-            while(number > 0){
-                catString += '🐱';
-                number--;
-            }
-            return catString;
-        }
-    
-    
-        
-    
+    <script src="apiKey.js">
+      
     </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
-
-
